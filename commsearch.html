@@ -1,0 +1,57 @@
+
+<head>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 10px;
+        }
+    </style>
+    <title>Commentsearch</title>
+</head>
+
+<body>
+    {% if name %}
+    <h1>Hello {{ name }}!</h1>
+    {% endif %}
+    <div class="title">
+        <h2>Search On Comments!</h2>
+    </div>
+
+    <ul>
+    <li>Go back to <a href='/profile'>profile?</a></li>
+    <li><a href='/'>Home</a></li>
+    </ul>
+
+
+
+    <form method="post" action="{{ url_for('commsearch') }}">
+        <label for="search">Enter comments</label>:
+        <input type="text" name="comment" required='true' />
+        <input type="submit" value="Search"/>
+    </form>
+
+
+    <table style="width:30%"> 
+        <tr>
+            <th style="width:70%">User's Email</th>
+            <th style="width:30%"># Comments</th>
+        </tr>
+        {% if users %}
+        {% for user in users %}
+            <tr>
+            <td>{{user[0]}}</td>
+            <td>{{user[1]}}</td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+        </table>
+
+
+
+
+</body>
+
+

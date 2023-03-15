@@ -1,0 +1,32 @@
+
+<head>
+<title>Upload a photo!</title>
+{% if name %}
+<h1>Hello {{ name }}!</h1>
+{% endif %}
+</head>
+    <body>
+        <div class="title">
+            <h1>Upload a photo to Photoshare</h1>
+        </div>
+            <form method="post" enctype="multipart/form-data" action="/upload">
+                <label for="photo">Select Photo:</label>
+                <input type="file" name="photo" required='true' /><br />
+                <br />
+                <label for="caption">Please Caption:</label>
+                <input type="text" name="caption" required='true' /><br />
+                <br />
+                Select Album ID: <SELECT name="album_id">
+                {% for row in albumList %}
+                    <OPTION value="{{row[3]}}">{{row[0]}}</OPTION>
+                {% endfor %}
+                </SELECT>
+                <input type="submit" value="Upload">
+                <br />
+            </form>
+
+    </body>
+<ul>
+    <li><a href='/'>Home</a></li>
+    <li><a href='/profile'> Profile </a> </li>
+</ul>

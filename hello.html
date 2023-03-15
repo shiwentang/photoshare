@@ -1,0 +1,105 @@
+
+<!doctype html>
+{% if message %}
+  <h1>{{message}}</h1>
+{% endif %}
+<title>Photoshare</title>
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% endif %}
+
+{% if message is none %}
+  <p>You should <a href='/login'>login!</a></p>
+{% else %}
+  <p> Go to <a href='/profile'>profile?</a></p>
+{% endif %}
+
+<ul>
+{% if logout %}
+{% else %}
+  <li><a href='/album'> Albums </a> </li>
+  <li><a href='/upload'> Upload Photos </a> </li>
+  <li><a href='/tag'> Tags </a> </li>
+  <li><a href='/photosearch'> Search Photos </a> </li>
+  <li><a href='/commsearch'>Search On Comments</a></li>
+  <li><a href='/contribution'>Top 10 Contributors</a></li>
+  <li><a href='/alsolike'>Photos You May Also Like</a></li>
+{% endif %}
+{% if current_user.is_authenticated %}
+  <li><a href='/logout'>Logout</a></li>
+{% else %}
+{% endif %}
+
+<li><a href='/'>Home</a></li>
+</ul>
+<body>
+{% if photos %}
+<h2>Here are all photos</h2>
+    <ul>
+    {% for photo in photos %}
+    <li>Caption: {{photo[2]}}&emsp;&emsp;&emsp;&emsp;
+      Photo ID: {{photo[1]}}&emsp;&emsp;&emsp;&emsp;
+      Uploaded by: {{photo[3]}}
+    </li> 
+      <li>Tags: 
+      {% if photo[4] %}
+        {{photo[4]}}
+      {% endif %}
+      </li>
+
+      <li>
+        <form method="post" action="{{ url_for('comment') }}">
+          <label for="comment">Enter Comments</label>:
+          <input type="text" name="comment" required='true' />
+          <input type="hidden" name="pid" value="{{photo[1]}}"/>
+          <input type="submit" value="Comment"/>
+        </form>
+        </li>  
+
+      <li>Comments: 
+        {% if photo[6]%}
+        {{photo[6]}} 
+        {% endif %} 
+      </li>
+
+      <li>Who Likes: 
+
+        {% if session['like']%}
+        {% for like in session['like'] %}
+           {% if like[1]==photo[1] %}
+           {{like[2]}}
+           {% endif %}
+          {% endfor %}  
+        {% endif %} 
+
+        {% if current_user.is_authenticated%}
+        <form method="post" action="{{ url_for('like') }}">
+          <input type="submit" name="like" value="Like">
+          <input type="hidden" name="pid" value="{{photo[1]}}"/>
+        {% endif %} 
+
+        <li>
+        # Users like this:
+        {% if session['likenum']%}
+        {% for like in session['likenum'] %}
+           {% if like[0]==photo[1] %}
+           {{like[1]}}
+           {% endif %}
+          {% endfor %}  
+        {% endif %} 
+      </li>
+
+      </form>
+
+      </li>
+
+
+      
+        <img src='data:image/jpg;base64, {{ base64.b64encode(photo[0]).decode("ascii") }}'/>
+      </br></br>
+      </li>
+      
+      {% endfor %}
+    </ul>
+{% endif %}
+</body>

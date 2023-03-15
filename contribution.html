@@ -1,0 +1,51 @@
+
+<head>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 10px;
+        }
+    </style>
+    <title>Contribution</title>
+</head>
+
+<body>
+    {% if name %}
+    <h1>Hello {{ name }}!</h1>
+    {% endif %}
+    <div class="title">
+        <h2>TOP 10 Contributors</h2>
+    </div>
+
+    <table style="width:50%"> 
+        <tr>
+            <th style="width:35%">User's Email</th>
+            <th style="width:20%">Contribution Score</th>
+            <th style="width:20%"># Uploaded Photos</th>
+            <th style="width:25%"># Comments</th>
+        </tr>
+        {% if users %}
+        {% for user in users %}
+            <tr>
+            <td>{{user[0]}}</td>
+            <td>{{user[1]}}</td>
+            <td>{{user[2]}}</td>
+            <td>{{user[3]}}</td>
+            </tr>
+        {% endfor %}
+        {% endif %}
+        </table>
+
+
+    <ul>
+        <li><a href='/'>Home</a></li>
+        </ul>
+
+
+
+</body>
+
+

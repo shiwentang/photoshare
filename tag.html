@@ -1,0 +1,40 @@
+<head>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 10px;
+        }
+    </style>
+    <title>Tags</title>
+</head>
+<div class="title">
+    <h1>Here are all tags!</h1>
+</div>
+
+
+{% if tags %}
+<form method="post" action="{{ url_for('protected') }}">
+    {% for tag in tags %}
+        {% if tag[0]=='None' %}
+        {% else %}
+        <li>
+        <td>Tag: <a href="/tag/{{tag[0]}}">{{tag[0]}}</a></td>
+        </li>  
+        {% endif %}
+    {% endfor %}
+    <h3>The Most Popular Tag</h3>
+    {% if popTag %}
+    <li><td>Tag: <a href="/tag/{{popTag[0][0]}}">{{popTag[0][0]}}</a></td></li>
+    {% endif %}
+</form>
+{% endif %}
+
+
+<ul>
+    <li>Go back to <a href='/profile'>profile?</a></li>
+    <li><a href='/logout'>Logout</a></li>
+    <li><a href='/'>Home</a></li>
+</ul>

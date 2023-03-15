@@ -1,0 +1,22 @@
+
+<!doctype html>
+{% if message %}
+  <p style=font-size:20px>{{message}}</p>
+{% endif %}
+<title>Photoshare</title>
+{% if name %}
+  <h1>Hello {{ name }}!</h1>
+{% endif %}
+<ul>
+    {% for photo in photos %}
+      <li>Caption: {{photo[2]}}&emsp;&emsp;&emsp;&emsp;&emsp;
+        Photo ID: {{photo[1]}}</li> 
+        <li>
+        {% if photo[4] %}
+        Tags: {{photo[4]}}
+        {% endif %}
+        </li>  
+        <img src='data:image/jpg;base64, {{ base64.b64encode(photo[0]).decode("ascii") }}'/>
+      </br> 
+    {% endfor %}
+    </ul>
